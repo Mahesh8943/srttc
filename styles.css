@@ -361,7 +361,7 @@ button {
     position: relative;
     height: 600px;
     overflow: hidden;
-    background: var(--dark-gray);
+    background: #0066a1;
 }
 
 .slider-container {
