@@ -1,16 +1,16 @@
 // SRTTC Website JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
-    
+
     // ============ Mobile Navigation ============
     const mobileToggle = document.querySelector('.mobile-toggle');
     const navMenu = document.querySelector('.nav-menu');
-    
+
     if (mobileToggle) {
         mobileToggle.addEventListener('click', function() {
             navMenu.classList.toggle('active');
         });
-        
+
         // Close menu when clicking on a link
         const navLinks = document.querySelectorAll('.nav-menu a');
         navLinks.forEach(link => {
@@ -18,8 +18,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 navMenu.classList.remove('active');
             });
         });
+
+        // Mobile dropdown toggle
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            const link = dropdown.querySelector('a');
+            link.addEventListener('click', function(e) {
+                if (window.innerWidth <= 968) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                }
+            });
+        });
     }
-    
+
     // ============ Hero Slider ============
     const slides = document.querySelectorAll('.slide');
     const sliderDots = document.querySelector('.slider-dots');
@@ -27,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const nextBtn = document.querySelector('.slider-btn.next');
     let currentSlide = 0;
     let slideInterval;
-    
+
     // Create dots
     if (sliderDots && slides.length > 0) {
         slides.forEach((_, index) => {
@@ -38,49 +50,112 @@ document.addEventListener('DOMContentLoaded', function() {
             sliderDots.appendChild(dot);
         });
     }
-    
+
     function showSlide(n) {
         slides.forEach(slide => slide.classList.remove('active'));
         const dots = document.querySelectorAll('.slider-dot');
         dots.forEach(dot => dot.classList.remove('active'));
-        
+
         currentSlide = (n + slides.length) % slides.length;
         slides[currentSlide].classList.add('active');
         dots[currentSlide].classList.add('active');
     }
-    
+
     function nextSlide() {
         showSlide(currentSlide + 1);
     }
-    
+
     function prevSlide() {
         showSlide(currentSlide - 1);
     }
-    
+
     function goToSlide(n) {
         showSlide(n);
         resetInterval();
     }
-    
+
     function resetInterval() {
         clearInterval(slideInterval);
         slideInterval = setInterval(nextSlide, 5000);
     }
-    
+
     if (slides.length > 0) {
         slideInterval = setInterval(nextSlide, 5000);
-        
+
         if (prevBtn) prevBtn.addEventListener('click', () => {
             prevSlide();
             resetInterval();
         });
-        
+
         if (nextBtn) nextBtn.addEventListener('click', () => {
             nextSlide();
             resetInterval();
         });
     }
-    
+
+    // ============ Testimonial Slider ============
+    const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+    const testimonialDots = document.querySelector('.testimonial-dots');
+    const testimonialPrevBtn = document.querySelector('.testimonial-btn.prev');
+    const testimonialNextBtn = document.querySelector('.testimonial-btn.next');
+    let currentTestimonial = 0;
+    let testimonialInterval;
+
+    // Create testimonial dots
+    if (testimonialDots && testimonialSlides.length > 0) {
+        testimonialSlides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.classList.add('testimonial-dot');
+            if (index === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToTestimonial(index));
+            testimonialDots.appendChild(dot);
+        });
+    }
+
+    function showTestimonial(n) {
+        testimonialSlides.forEach(slide => slide.classList.remove('active'));
+        const dots = document.querySelectorAll('.testimonial-dot');
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        currentTestimonial = (n + testimonialSlides.length) % testimonialSlides.length;
+        testimonialSlides[currentTestimonial].classList.add('active');
+        if (dots[currentTestimonial]) {
+            dots[currentTestimonial].classList.add('active');
+        }
+    }
+
+    function nextTestimonial() {
+        showTestimonial(currentTestimonial + 1);
+    }
+
+    function prevTestimonial() {
+        showTestimonial(currentTestimonial - 1);
+    }
+
+    function goToTestimonial(n) {
+        showTestimonial(n);
+        resetTestimonialInterval();
+    }
+
+    function resetTestimonialInterval() {
+        clearInterval(testimonialInterval);
+        testimonialInterval = setInterval(nextTestimonial, 6000);
+    }
+
+    if (testimonialSlides.length > 0) {
+        testimonialInterval = setInterval(nextTestimonial, 6000);
+
+        if (testimonialPrevBtn) testimonialPrevBtn.addEventListener('click', () => {
+            prevTestimonial();
+            resetTestimonialInterval();
+        });
+
+        if (testimonialNextBtn) testimonialNextBtn.addEventListener('click', () => {
+            nextTestimonial();
+            resetTestimonialInterval();
+        });
+    }
+
     // ============ Ticker Animation ============
     const tickerItems = document.querySelector('.ticker-items');
     if (tickerItems) {
@@ -88,20 +163,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const items = tickerItems.innerHTML;
         tickerItems.innerHTML += items;
     }
-    
+
     // ============ Counter Animation ============
     const statNumbers = document.querySelectorAll('.stat-number');
     let hasAnimated = false;
-    
+
     function animateCounters() {
         if (hasAnimated) return;
-        
+
         statNumbers.forEach(stat => {
             const target = parseInt(stat.getAttribute('data-count'));
             const duration = 2000;
             const increment = target / (duration / 16);
             let current = 0;
-            
+
             const updateCounter = () => {
                 current += increment;
                 if (current < target) {
@@ -111,25 +186,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     stat.textContent = target;
                 }
             };
-            
+
             updateCounter();
         });
-        
+
         hasAnimated = true;
     }
-    
+
     // ============ Scroll Animations ============
     const observerOptions = {
         threshold: 0.2,
         rootMargin: '0px 0px -100px 0px'
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
-                
+
                 // Trigger counter animation for stats section
                 if (entry.target.classList.contains('stat-card') && !hasAnimated) {
                     animateCounters();
@@ -137,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }, observerOptions);
-    
+
     // Observe elements with data-animate attribute
     const animatedElements = document.querySelectorAll('[data-animate]');
     animatedElements.forEach(el => {
@@ -146,10 +221,10 @@ document.addEventListener('DOMContentLoaded', function() {
         el.style.transition = 'all 0.8s ease-out';
         observer.observe(el);
     });
-    
+
     // ============ Scroll to Top Button ============
     const scrollTopBtn = document.getElementById('scrollTop');
-    
+
     window.addEventListener('scroll', () => {
         if (window.pageYOffset > 300) {
             scrollTopBtn.classList.add('active');
@@ -157,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollTopBtn.classList.remove('active');
         }
     });
-    
+
     if (scrollTopBtn) {
         scrollTopBtn.addEventListener('click', () => {
             window.scrollTo({
@@ -166,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    
+
     // ============ Smooth Scroll for Anchor Links ============
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -184,14 +259,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     // ============ Active Navigation Highlight ============
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-menu a');
-    
+
     window.addEventListener('scroll', () => {
         let current = '';
-        
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
@@ -199,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 current = section.getAttribute('id');
             }
         });
-        
+
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href') === `#${current}`) {
@@ -207,7 +282,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     // ============ Lazy Loading Images ============
     const images = document.querySelectorAll('img[data-src]');
     const imageObserver = new IntersectionObserver((entries, observer) => {
@@ -220,26 +295,26 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     images.forEach(img => imageObserver.observe(img));
-    
+
     // ============ Prevent External Link Redirect ============
     document.querySelectorAll('a[href="#"]').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
         });
     });
-    
+
     // ============ Form Validation (if exists on page) ============
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             // Basic validation
             const inputs = this.querySelectorAll('input[required], textarea[required], select[required]');
             let isValid = true;
-            
+
             inputs.forEach(input => {
                 if (!input.value.trim()) {
                     isValid = false;
@@ -248,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     input.style.borderColor = '#DEE2E6';
                 }
             });
-            
+
             if (isValid) {
                 alert('Thank you for your enquiry! We will contact you soon.');
                 this.reset();
@@ -257,10 +332,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     // ============ Add Loading Animation on Page Load ============
     window.addEventListener('load', () => {
         document.body.classList.add('loaded');
     });
-    
+
 });
