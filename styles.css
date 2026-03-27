@@ -603,9 +603,12 @@ section {
 .about-text .lead {
     font-size: 20px;
     font-weight: 600;
-    color: var(--primary-blue);
     margin-bottom: 20px;
     line-height: 1.6;
+}
+
+.mission-statement {
+    color: var(--primary-blue);
 }
 
 .about-text p {
