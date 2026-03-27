@@ -203,7 +203,7 @@ button {
 /* Navigation */
 .main-nav {
     background: var(--primary-blue);
-    position: sticky;
+    position: relative;
     top: 0;
     z-index: 1000;
     box-shadow: var(--shadow-md);
