@@ -1130,7 +1130,7 @@ section {
 .social ul {
     list-style: none;
     padding: 0;
-    margin: 0 0 10px;
+    margin: 19 0 10px;
     width: 165px;
     transform: translateX(120px);
     transition: transform 0.5s ease;
