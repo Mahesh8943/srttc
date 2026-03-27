@@ -140,12 +140,38 @@
             margin-top: 40px;
         }
 
+        .map-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
         .map-section h3 {
             font-size: 32px;
             color: var(--navy);
-            text-align: center;
-            margin-bottom: 30px;
+            margin: 0;
             font-weight: 700;
+        }
+
+        .map-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-blue);
+            font-weight: 600;
+            text-decoration: none;
+            background: rgba(0, 102, 161, 0.08);
+            padding: 12px 16px;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .map-link:hover {
+            background: rgba(0, 102, 161, 0.15);
+            transform: translateY(-1px);
         }
 
         .map-container {
@@ -179,6 +205,10 @@
             .map-container {
                 padding-bottom: 350px;
             }
+
+            .map-header {
+                align-items: flex-start;
+            }
         }
 
         @media (max-width: 640px) {
@@ -193,6 +223,11 @@
 
             .map-container {
                 padding-bottom: 300px;
+            }
+
+            .map-link {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -429,9 +464,15 @@
 
             <!-- Google Map Section -->
             <div class="map-section">
-                <h3>Find Us on Map</h3>
+                <div class="map-header">
+                    <h3>Find Us on Map</h3>
+                    <a class="map-link" href="https://maps.app.goo.gl/EoAWJWcCWgz5QNnC6" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-location-dot"></i>
+                        Open in Google Maps
+                    </a>
+                </div>
                 <div class="map-container">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15121.69929730907!2d73.4461936!3d18.7603753!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be804724b5c0001%3A0x41f274a22d846a0a!2sSuman%20Ramesh%20Tulsiani%20Technical%20Campus%20of%20Engg!5e0!3m2!1sen!2sin!4v1732173925992!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe src="https://www.google.com/maps?q=loc:18.7603753,73.4461936&z=17&output=embed" title="SRTTC location on Google Maps" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
