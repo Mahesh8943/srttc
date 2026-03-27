@@ -164,64 +164,6 @@ document.addEventListener('DOMContentLoaded', function() {
         tickerItems.innerHTML += items;
     }
 
-    // ============ Counter Animation ============
-    const statNumbers = document.querySelectorAll('.stat-number');
-    let hasAnimated = false;
-
-    function animateCounters() {
-        if (hasAnimated) return;
-
-        statNumbers.forEach(stat => {
-            const target = parseInt(stat.getAttribute('data-count'));
-            const duration = 2000;
-            const increment = target / (duration / 16);
-            let current = 0;
-
-            const updateCounter = () => {
-                current += increment;
-                if (current < target) {
-                    stat.textContent = Math.floor(current);
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    stat.textContent = target;
-                }
-            };
-
-            updateCounter();
-        });
-
-        hasAnimated = true;
-    }
-
-    // ============ Scroll Animations ============
-    const observerOptions = {
-        threshold: 0.2,
-        rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-
-                // Trigger counter animation for stats section
-                if (entry.target.classList.contains('stat-card') && !hasAnimated) {
-                    animateCounters();
-                }
-            }
-        });
-    }, observerOptions);
-
-    // Observe elements with data-animate attribute
-    const animatedElements = document.querySelectorAll('[data-animate]');
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 0.8s ease-out';
-        observer.observe(el);
-    });
-
     // ============ Scroll to Top Button ============
     const scrollTopBtn = document.getElementById('scrollTop');
 
