@@ -1139,7 +1139,7 @@ section {
 .social ul li {
     display: block;
     margin: 5px;
-    background-color: var(--social-base);
+    background-color: #0973bcd6;
     width: 155px;
     height: 40px;
     padding: 5px;
