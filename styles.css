@@ -26,6 +26,13 @@
     --medium-gray: #6C757D;
     --dark-gray: #343A40;
     --border-color: #DEE2E6;
+    --accent-red: #E63946;
+    --dept-blue: #3A86FF;
+    --dept-purple: #8338EC;
+    --dept-orange: #FB5607;
+    --dept-yellow: #FFBE0B;
+    --dept-teal: #06D6A0;
+    --dept-pink: #FF006E;
     
     /* Typography */
     --font-primary: 'Poppins', sans-serif;
@@ -757,76 +764,134 @@ section {
     background: var(--light-gray);
 }
 
+.departments-preview .section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.departments-preview .section-label {
+    display: block;
+    color: var(--accent-red);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.departments-preview .section-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 15px;
+    font-family: var(--font-display);
+}
+
+.departments-preview .title-underline {
+    width: 50px;
+    height: 2px;
+    background: var(--accent-red);
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
 .departments-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 30px;
 }
 
 .dept-card {
+    --accent-color: var(--primary-blue);
+    --accent-soft: rgba(0, 102, 161, 0.15);
     background: var(--white);
     border-radius: 20px;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: all 0.4s;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .dept-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-xl);
+    transform: translateY(-6px);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.08);
 }
+
+.dept-card:nth-child(1) { --accent-color: var(--dept-blue); --accent-soft: #3a86ff26; }
+.dept-card:nth-child(2) { --accent-color: var(--dept-purple); --accent-soft: #8338ec26; }
+.dept-card:nth-child(3) { --accent-color: var(--dept-orange); --accent-soft: #fb560726; }
+.dept-card:nth-child(4) { --accent-color: var(--dept-yellow); --accent-soft: #ffbe0b26; }
+.dept-card:nth-child(5) { --accent-color: var(--dept-teal); --accent-soft: #06d6a026; }
+.dept-card:nth-child(6) { --accent-color: var(--dept-pink); --accent-soft: #ff006e26; }
 
 .dept-icon {
-    background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
-    padding: 50px;
-    text-align: center;
-    position: relative;
-}
-
-.dept-icon::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 10px;
-    background: var(--yellow);
-}
-
-.dept-icon i {
-    font-size: 60px;
-    color: var(--white);
-}
-
-.dept-card > div:last-child {
-    padding: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    color: var(--accent-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 25px;
 }
 
 .dept-title {
     font-size: 22px;
     font-weight: 700;
     color: var(--navy);
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 .dept-desc {
     color: var(--medium-gray);
-    margin-bottom: 20px;
-    line-height: 1.7;
+    margin: 0 0 30px;
+    line-height: 1.6;
+    font-size: 15px;
 }
 
 .dept-link {
-    color: var(--primary-blue);
-    font-weight: 600;
+    color: var(--accent-red);
+    font-weight: 700;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    transition: all 0.3s;
+    gap: 6px;
+    font-size: 14px;
 }
 
-.dept-link:hover {
-    color: var(--dark-blue);
-    gap: 12px;
+.dept-link i {
+    font-size: 10px;
+}
+
+.dept-meta {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.dept-intake {
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+@media (max-width: 991px) {
+    .departments-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .departments-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Recruiters Section */
