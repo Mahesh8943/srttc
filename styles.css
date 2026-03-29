@@ -248,6 +248,7 @@ button {
 
 .nav-menu li:hover > a i.fa-chevron-down {
     transform: rotate(180deg);
+    color: var(--warning);
 }
 
 .nav-menu li a::after {
