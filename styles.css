@@ -242,11 +242,13 @@ button {
 .nav-menu li a i.fa-chevron-down {
     font-size: 10px;
     margin-left: 5px;
-    transition: transform 0.3s;
+    display: inline-block;
+    transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .nav-menu li:hover > a i.fa-chevron-down {
     transform: rotate(180deg);
+    color: var(--warning);
 }
 
 .nav-menu li a::after {
@@ -276,15 +278,17 @@ button {
     position: absolute;
     top: 100%;
     left: 0;
-    background: rgb(0, 102, 161);
+    background: var(--primary-blue);
     min-width: 250px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    border-top: 3px solid var(--warning);
     border-radius: 0 0 10px 10px;
     border: none;
     opacity: 0;
     visibility: hidden;
+    overflow: hidden;
     transform: translateY(-10px);
-    transition: all 0.3s ease;
+    transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), visibility 0.3s linear, box-shadow 0.3s ease;
     z-index: 1000;
     padding: 10px 0;
 }
@@ -300,12 +304,13 @@ button {
 }
 
 .dropdown-menu li a {
-    color: #fff;
-    padding: 12px 25px;
+    color: var(--white);
+    padding: 12px 28px;
     display: block;
     font-size: 14px;
     font-weight: 500;
-    transition: all 0.3s;
+    position: relative;
+    transition: color 0.3s ease, padding 0.3s ease, background-color 0.3s ease;
     border: none;
 }
 
@@ -313,11 +318,35 @@ button {
     display: none;
 }
 
+.dropdown-menu li a::before {
+    content: '→';
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%) translateX(-6px);
+    color: var(--warning);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
 .dropdown-menu li a:hover {
     background: rgba(255,255,255,0.12);
-    color: #fff;
+    color: var(--warning);
     border: none;
-    padding-left: 30px;
+    padding-left: 36px;
+}
+
+.dropdown-menu li a:hover::before {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+
+.dropdown > a {
+    transition: color 0.3s ease;
+}
+
+.dropdown:hover > a {
+    color: var(--warning);
 }
 
 .mobile-toggle {
@@ -1264,7 +1293,7 @@ section {
         transform: none;
         box-shadow: none;
         border-radius: 0;
-        background: rgb(0, 102, 161);
+        background: var(--primary-blue);
         display: none;
     }
 
